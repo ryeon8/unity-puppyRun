@@ -9,7 +9,7 @@ public class Background : MonoBehaviour
     [SerializeField]
     private float moveSpeed;
     [SerializeField]
-    private float width;
+    private float width = 40f;
     [SerializeField]
     private Transform nextBackground;
 
@@ -23,7 +23,7 @@ public class Background : MonoBehaviour
     void Update()
     {
         transform.position += moveDirection * moveSpeed * Time.deltaTime;
-        if (transform.position.y <= -width)
+        if (transform.position.x <= -width)
         {
             transform.position = nextBackground.position - moveDirection * width;
         }
