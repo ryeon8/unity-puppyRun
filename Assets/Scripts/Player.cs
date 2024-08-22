@@ -8,7 +8,8 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField]
     private float jumpForce;
-    private bool isGrounded = true;
+
+    private bool onGround = true;
     private int jumpCount = 0;
     private int maxJumpCount = 2;
 
@@ -17,7 +18,6 @@ public class Player : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (IsJumpable() && Input.GetButtonDown("Jump"))
@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
 
     void Jump()
     {
-        isGrounded = false;
+        onGround = false;
         jumpCount++;
         // impulse: 즉각적이고 짧은 시간 동안 힘이 가해짐. 점프, 총알 발사 등.
         // force: 지속적인 힘. 시간이 지남에 따라 물체에 누적되며 힘을 꾸준히 가하는 상황에서 사용.
@@ -44,10 +44,8 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "Ground")
         {
-            isGrounded = true;
+            onGround = true;
             jumpCount = 0;
         }
     }
-
-
 }
