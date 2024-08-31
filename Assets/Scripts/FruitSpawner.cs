@@ -16,13 +16,15 @@ public class FruitSpawner : MonoBehaviour
     private int jumpHeight;
 
     private List<List<Tuple<int, int>>> coordsList;
-    private Tuple<int, int> defaultCoord = new Tuple<int, int>(20, -6);
+    private Tuple<int, int> defaultCoord = new Tuple<int, int>(20, -5);
 
     private string spawnFruitRoutineName = "SpawnFruitRoutine";
 
     void Start()
     {
         InitCoordsList();
+        AddRandomCoords();
+        ClearRandomCoords();
         StartCoroutine(spawnFruitRoutineName);
     }
 
@@ -39,15 +41,28 @@ public class FruitSpawner : MonoBehaviour
         {
             coordsList.Add(new List<Tuple<int, int>> { defaultCoord });
         }
+    }
 
-
-
+    void AddRandomCoords()
+    {
         System.Random random = new System.Random();
         foreach (List<Tuple<int, int>> coords in coordsList)
         {
             if (random.Next(0, 10) < 3)
             { // 30% 확률로 새로운 y축 요소 추가.
                 coords.Add(new Tuple<int, int>(defaultCoord.Item1, defaultCoord.Item2 + jumpHeight));
+            }
+        }
+    }
+
+    void ClearRandomCoords()
+    {
+        System.Random random = new System.Random();
+        foreach (List<Tuple<int, int>> coords in coordsList)
+        {
+            if (random.Next(0, 10) < 1)
+            {
+                coords.Clear();
             }
         }
     }
