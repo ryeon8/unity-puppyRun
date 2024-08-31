@@ -22,7 +22,7 @@ public class FruitSpawner : MonoBehaviour
 
     void Start()
     {
-        InitCoordList();
+        InitCoordsList();
         StartCoroutine(spawnFruitRoutineName);
     }
 
@@ -31,7 +31,7 @@ public class FruitSpawner : MonoBehaviour
 
     }
 
-    void InitCoordList()
+    void InitCoordsList()
     {
         coordsList = new List<List<Tuple<int, int>>>();
 
@@ -39,6 +39,8 @@ public class FruitSpawner : MonoBehaviour
         {
             coordsList.Add(new List<Tuple<int, int>> { defaultCoord });
         }
+
+
 
         System.Random random = new System.Random();
         foreach (List<Tuple<int, int>> coords in coordsList)
