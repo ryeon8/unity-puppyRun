@@ -60,7 +60,7 @@ public class FruitSpawner : MonoBehaviour
         System.Random random = new System.Random();
         foreach (List<Tuple<int, int>> coords in coordsList)
         {
-            if (random.Next(0, 10) < 1)
+            if (random.Next(0, 10) < 3)
             {
                 coords.Clear();
             }
