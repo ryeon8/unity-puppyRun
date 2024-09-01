@@ -4,19 +4,33 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[Serializable]
+public class FruitSpawnInfo
+{
+    public float x;
+    public float y;
+    public int fruitTextPairIndex;
+
+    public FruitSpawnInfo(float x, float y, int fruitTextPairIndex)
+    {
+        this.x = x;
+        this.y = y;
+        this.fruitTextPairIndex = fruitTextPairIndex;
+    }
+}
+
 public class FruitSpawner : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject[] fruits;
     [SerializeField]
     private float spawnIntervalSecond;
     [SerializeField]
     private int maxFruitCount = 50;
     [SerializeField]
     private int jumpHeight;
+    [SerializeField]
+    private FruitSpawnInfo defaultFruitSpawnInfo;
 
-    private List<List<Tuple<int, int, int>>> coordsList;
-    private Tuple<int, int, int> defaultCoord = new Tuple<int, int, int>(20, -5, 0);
+    private List<List<FruitSpawnInfo>> fruitSpawnInfosList;
 
     private string spawnFruitRoutineName = "SpawnFruitRoutine";
     private System.Random random = new System.Random();
@@ -36,21 +50,21 @@ public class FruitSpawner : MonoBehaviour
 
     void InitCoordsList()
     {
-        coordsList = new List<List<Tuple<int, int, int>>>();
+        fruitSpawnInfosList = new List<List<FruitSpawnInfo>>();
 
         for (int i = 0; i < maxFruitCount; i++)
         {
-            coordsList.Add(new List<Tuple<int, int, int>> { defaultCoord });
+            fruitSpawnInfosList.Add(new List<FruitSpawnInfo> { defaultFruitSpawnInfo });
         }
     }
 
     void AddRandomCoords()
     {
-        foreach (List<Tuple<int, int, int>> coords in coordsList)
+        foreach (List<FruitSpawnInfo> spawnInfos in fruitSpawnInfosList)
         {
             if (random.Next(0, 10) < 3)
             { // 30% 확률로 새로운 y축 요소 추가.
-                coords.Add(new Tuple<int, int, int>(defaultCoord.Item1, defaultCoord.Item2 + jumpHeight, PickRandomFruitIndex()));
+                spawnInfos.Add(new FruitSpawnInfo(defaultFruitSpawnInfo.x, defaultFruitSpawnInfo.y + jumpHeight, PickRandomFruitIndex()));
             }
         }
     }
@@ -74,30 +88,34 @@ public class FruitSpawner : MonoBehaviour
 
     void ClearRandomCoords()
     {
-        foreach (List<Tuple<int, int, int>> coords in coordsList)
+        foreach (List<FruitSpawnInfo> fruitSpawnInfos in fruitSpawnInfosList)
         {
             if (random.Next(0, 10) < 3)
             {
-                coords.Clear();
+                fruitSpawnInfos.Clear();
             }
         }
     }
 
     IEnumerator SpawnFruitRoutine()
     {
-        foreach (List<Tuple<int, int, int>> coords in coordsList)
+        foreach (List<FruitSpawnInfo> fruitSpawnInfos in fruitSpawnInfosList)
         {
-            SpawnFruit(coords);
+            SpawnFruits(fruitSpawnInfos);
             yield return new WaitForSeconds(spawnIntervalSecond);
         }
     }
 
-    void SpawnFruit(List<Tuple<int, int, int>> coords)
+    void SpawnFruits(List<FruitSpawnInfo> fruitSpawnInfos)
     {
-        foreach (Tuple<int, int, int> coord in coords)
+        foreach (FruitSpawnInfo fruitSpawnInfo in fruitSpawnInfos)
         {
             // 3번째 인자는 오브젝트의 회전을 설정함. identity: 회전 없음 / 기본 회전값(0,0,0)
-            Instantiate(fruits[coord.Item3], new Vector3(coord.Item1, coord.Item2, 0), Quaternion.identity);
+            Instantiate(
+                GameManager.instance.fruitTextPairs[fruitSpawnInfo.fruitTextPairIndex].fruit,
+                new Vector3(fruitSpawnInfo.x, fruitSpawnInfo.y, 0),
+                Quaternion.identity
+            );
         }
     }
 }
