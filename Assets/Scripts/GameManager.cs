@@ -47,8 +47,5 @@ public class GameManager : MonoBehaviour
     {
         // FindIndex도 있음.
         return fruitTextPairs.Find(e => fruit.gameObject.name.StartsWith(e.fruit.name));
-        // Debug.Log(fruit.gameObject.name);
-        // Debug.Log(fruitTextPairs[0].fruit.name);
-        // return fruitTextPairs[0];
     }
 }
