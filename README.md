@@ -6,6 +6,7 @@
 - [배경 에셋](https://assetstore.unity.com/packages/2d/environments/free-2d-cartoon-parallax-background-205812)
 - [과일 에셋](https://assetstore.unity.com/packages/2d/pixel-food-items-fruits-289592)
 - [퍼피 에셋](https://opengameart.org/content/cat-dog-free-sprites)
+- [우측 상단 버튼 에셋](https://assetstore.unity.com/packages/2d/gui/icons/371-simple-buttons-pack-97516)
 
 
 # ENV
