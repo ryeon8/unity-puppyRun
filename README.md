@@ -7,7 +7,7 @@
 - [과일 에셋](https://assetstore.unity.com/packages/2d/pixel-food-items-fruits-289592)
 - [퍼피 에셋](https://opengameart.org/content/cat-dog-free-sprites)
 - [우측 상단 버튼 에셋](https://assetstore.unity.com/packages/2d/gui/icons/371-simple-buttons-pack-97516)
-
+- [버섯 에셋](https://assetstore.unity.com/packages/2d/environments/pixel-art-woods-tileset-and-background-280066)
 
 # ENV
 - unity editor 2022.3.40f1
