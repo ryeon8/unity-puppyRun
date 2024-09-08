@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ButtonManager : MonoBehaviour
@@ -10,6 +11,8 @@ public class ButtonManager : MonoBehaviour
     private Button pauseButton;
     [SerializeField]
     private Button resumeButton;
+    [SerializeField]
+    private Button replayButton;
     [SerializeField]
     private GameObject countDownPannel;
     [SerializeField]
@@ -53,5 +56,11 @@ public class ButtonManager : MonoBehaviour
     {
         pauseButton.gameObject.SetActive(!isPaused);
         resumeButton.gameObject.SetActive(isPaused);
+    }
+
+    public void Replay()
+    {
+        SceneManager.LoadScene("SampleScene");
+        Time.timeScale = 1;
     }
 }

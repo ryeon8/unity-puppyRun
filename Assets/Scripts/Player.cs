@@ -55,5 +55,9 @@ public class Player : MonoBehaviour
     {
         healthPoint -= damage;
         GameManager.instance.UpdateHealthPointSlider(healthPoint);
+        if (healthPoint < 1)
+        {
+            GameManager.instance.GameOvered();
+        }
     }
 }

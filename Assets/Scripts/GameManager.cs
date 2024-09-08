@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     private Slider healthPointSlider;
     [SerializeField]
     public List<FruitTextPair> fruitTextPairs;
+    [SerializeField]
+    private Canvas gameOverCanvas;
 
     public static GameManager instance = null;
 
@@ -55,5 +57,11 @@ public class GameManager : MonoBehaviour
     public void UpdateHealthPointSlider(int healthPoint)
     {
         healthPointSlider.value = healthPoint;
+    }
+
+    public void GameOvered()
+    {
+        Time.timeScale = 0;
+        gameOverCanvas.gameObject.SetActive(true);
     }
 }
