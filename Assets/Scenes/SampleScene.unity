@@ -2046,7 +2046,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1.2
+  m_GravityScale: 3
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -2071,7 +2071,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1059951703}
-  jumpForce: 6
+  jumpForce: 12
+  healthPoint: 10
 --- !u!95 &1059951705
 Animator:
   serializedVersion: 5
@@ -3002,6 +3003,9 @@ MonoBehaviour:
     countText: {fileID: 730732571}
     count: 0
   - fruit: {fileID: 8619646106307832360, guid: 165b9adbe9546479aa4c32b0c4013620, type: 3}
+    countText: {fileID: 120677167}
+    count: 0
+  - fruit: {fileID: 8619646106307832360, guid: 3a90b162745db4e1e83f66f02e341e59, type: 3}
     countText: {fileID: 120677167}
     count: 0
 --- !u!4 &1639775595

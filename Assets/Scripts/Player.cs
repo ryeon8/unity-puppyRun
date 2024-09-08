@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     [SerializeField]
     private float jumpForce;
+    [SerializeField]
+    private int healthPoint;
 
     private bool onGround = true;
     private int jumpCount = 0;
@@ -47,5 +49,11 @@ public class Player : MonoBehaviour
             onGround = true;
             jumpCount = 0;
         }
+    }
+
+    public void Damaged(int damage)
+    {
+        healthPoint -= damage;
+        GameManager.instance.UpdateHealthPointSlider(healthPoint);
     }
 }

@@ -21,28 +21,12 @@ public class GameManager : MonoBehaviour
     public List<FruitTextPair> fruitTextPairs;
 
     public static GameManager instance = null;
-    private float timer = 0f;
 
     private void Awake()
     { // Start보다 먼저 호출됨.
         if (instance == null)
         {
             instance = this;
-        }
-    }
-
-    void Start()
-    {
-        Debug.Log(fruitTextPairs[0].countText);
-    }
-
-    void Update()
-    {
-        timer += Time.deltaTime;
-        if (timer > 1)
-        {
-            healthPointSlider.value -= 1f;
-            timer = 0f;
         }
     }
 
@@ -61,5 +45,15 @@ public class GameManager : MonoBehaviour
     {
         // FindIndex도 있음.
         return fruitTextPairs.Find(e => fruit.gameObject.name.StartsWith(e.fruit.name));
+    }
+
+    public int GetDamegeFruitIndex()
+    {
+        return fruitTextPairs.Count - 1; // TODO 과일과 버섯을 구분할 방법이 필요.
+    }
+
+    public void UpdateHealthPointSlider(int healthPoint)
+    {
+        healthPointSlider.value = healthPoint;
     }
 }

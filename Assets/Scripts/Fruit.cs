@@ -7,6 +7,7 @@ public class Fruit : MonoBehaviour
     [SerializeField] private Vector3 moveDirection = Vector3.left;
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float leftEdge = -25f;
+    [SerializeField] private int damege = 0;
 
     void Start()
     {
@@ -28,7 +29,15 @@ public class Fruit : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             Destroy(gameObject);
-            GameManager.instance.IncreaseFruitCount(gameObject);
+            if (this.damege > 0)
+            {
+                Player p = other.gameObject.GetComponent<Player>();
+                p.Damaged(damege);
+            }
+            else
+            {
+                GameManager.instance.IncreaseFruitCount(gameObject);
+            }
         }
     }
 }

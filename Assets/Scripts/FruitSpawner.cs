@@ -39,6 +39,7 @@ public class FruitSpawner : MonoBehaviour
     {
         InitCoordsList();
         AddRandomCoords();
+        AddRandomEnemyCoords();
         ClearRandomCoords();
         StartCoroutine(spawnFruitRoutineName);
     }
@@ -65,6 +66,18 @@ public class FruitSpawner : MonoBehaviour
             if (random.Next(0, 10) < 3)
             { // 30% 확률로 새로운 y축 요소 추가.
                 spawnInfos.Add(new FruitSpawnInfo(defaultFruitSpawnInfo.x, defaultFruitSpawnInfo.y + jumpHeight, PickRandomFruitIndex()));
+            }
+        }
+    }
+
+    void AddRandomEnemyCoords()
+    {
+        foreach (List<FruitSpawnInfo> spawnInfos in fruitSpawnInfosList)
+        {
+            if (random.Next(0, 10) < 2)
+            {
+                int index = Mathf.Clamp(random.Next(0, 2), 0, spawnInfos.Count - 1);
+                spawnInfos[index] = new FruitSpawnInfo(spawnInfos[index].x, spawnInfos[index].y - 1, GameManager.instance.GetDamegeFruitIndex());
             }
         }
     }
