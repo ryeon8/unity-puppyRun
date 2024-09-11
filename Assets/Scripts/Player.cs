@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     private float jumpForce;
     [SerializeField]
     private int healthPoint;
+    [SerializeField]
+    private int moveSpeed;
 
     private bool onGround = true;
     private int jumpCount = 0;
@@ -25,6 +27,11 @@ public class Player : MonoBehaviour
         if (IsJumpable() && Input.GetButtonDown("Jump"))
         {
             Jump();
+        }
+
+        if (FruitSpawner.instance.IsThereNoMoreFruits())
+        {
+            transform.position += Vector3.right * moveSpeed * Time.deltaTime;
         }
     }
 

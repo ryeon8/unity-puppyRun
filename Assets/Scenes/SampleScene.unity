@@ -928,7 +928,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnIntervalSecond: 0.3
-  maxFruitCount: 50
+  maxFruitCount: 10
   jumpHeight: 5
   defaultFruitSpawnInfo:
     x: 20
@@ -2340,6 +2340,7 @@ MonoBehaviour:
   rb: {fileID: 1059951703}
   jumpForce: 12
   healthPoint: 1
+  moveSpeed: 10
 --- !u!95 &1059951705
 Animator:
   serializedVersion: 5

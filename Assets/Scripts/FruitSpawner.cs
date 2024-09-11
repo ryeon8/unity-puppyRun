@@ -21,6 +21,8 @@ public class FruitSpawnInfo
 
 public class FruitSpawner : MonoBehaviour
 {
+    public static FruitSpawner instance;
+
     [SerializeField]
     private float spawnIntervalSecond;
     [SerializeField]
@@ -32,8 +34,18 @@ public class FruitSpawner : MonoBehaviour
 
     private List<List<FruitSpawnInfo>> fruitSpawnInfosList;
 
+    private bool isAllFruitsSpawned = false;
+    private DateTime timeLastFruitSpawned;
     private string spawnFruitRoutineName = "SpawnFruitRoutine";
     private System.Random random = new System.Random();
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
 
     void Start()
     {
@@ -117,6 +129,9 @@ public class FruitSpawner : MonoBehaviour
             SpawnFruits(fruitSpawnInfos);
             yield return new WaitForSeconds(spawnIntervalSecond);
         }
+
+        isAllFruitsSpawned = true;
+        timeLastFruitSpawned = DateTime.Now;
     }
 
     void SpawnFruits(List<FruitSpawnInfo> fruitSpawnInfos)
@@ -130,5 +145,18 @@ public class FruitSpawner : MonoBehaviour
                 Quaternion.identity
             );
         }
+    }
+
+    public bool IsThereNoMoreFruits()
+    {
+        if (isAllFruitsSpawned)
+        {
+            if ((DateTime.Now - timeLastFruitSpawned).TotalSeconds >= 5)
+            { // 과일이 스폰되지 않은 지 5초가 지났다면 이번 스폰은 끝난 것으로 가정.
+                return true;
+            }
+        }
+
+        return false;
     }
 }
