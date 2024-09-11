@@ -159,4 +159,9 @@ public class FruitSpawner : MonoBehaviour
 
         return false;
     }
+
+    public void InitSpawner()
+    {
+        isAllFruitsSpawned = false;
+    }
 }

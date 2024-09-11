@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Player : MonoBehaviour
     private bool onGround = true;
     private int jumpCount = 0;
     private int maxJumpCount = 2;
+    private bool hasReachedWorldEnd = false;
 
     void Start()
     {
@@ -29,7 +31,12 @@ public class Player : MonoBehaviour
             Jump();
         }
 
-        if (FruitSpawner.instance.IsThereNoMoreFruits())
+        if (hasReachedWorldEnd)
+        {
+            SceneManager.LoadScene("SecondWorld");
+            FruitSpawner.instance.InitSpawner();
+        }
+        else if (FruitSpawner.instance.IsThereNoMoreFruits())
         {
             transform.position += Vector3.right * moveSpeed * Time.deltaTime;
         }
@@ -55,6 +62,14 @@ public class Player : MonoBehaviour
         {
             onGround = true;
             jumpCount = 0;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Finish")
+        {
+            hasReachedWorldEnd = true;
         }
     }
 
