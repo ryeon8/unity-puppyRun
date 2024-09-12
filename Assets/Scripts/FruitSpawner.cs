@@ -151,7 +151,7 @@ public class FruitSpawner : MonoBehaviour
     {
         if (isAllFruitsSpawned)
         {
-            if ((DateTime.Now - timeLastFruitSpawned).TotalSeconds >= 5)
+            if (timeLastFruitSpawned != null && (DateTime.Now - timeLastFruitSpawned).TotalSeconds >= 5)
             { // 과일이 스폰되지 않은 지 5초가 지났다면 이번 스폰은 끝난 것으로 가정.
                 return true;
             }
@@ -163,5 +163,6 @@ public class FruitSpawner : MonoBehaviour
     public void InitSpawner()
     {
         isAllFruitsSpawned = false;
+        Start(); // 이래도... 되나?
     }
 }

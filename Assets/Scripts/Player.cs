@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,14 +15,19 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int moveSpeed;
 
+    private int stageLevel = 1;
     private bool onGround = true;
     private int jumpCount = 0;
     private int maxJumpCount = 2;
     private bool hasReachedWorldEnd = false;
+    private Vector3 initPosition;
+    private int backgroundChangedCount = 0;
 
     void Start()
     {
-
+        initPosition = gameObject.transform.position;
+        hasReachedWorldEnd = false;
+        FruitSpawner.instance.InitSpawner();
     }
 
     void Update()
@@ -33,13 +39,42 @@ public class Player : MonoBehaviour
 
         if (hasReachedWorldEnd)
         {
-            SceneManager.LoadScene("SecondWorld");
-            FruitSpawner.instance.InitSpawner();
+            if (IsEndJourney())
+            {
+                GameManager.instance.GameDone();
+            }
+            else
+            {
+                hasReachedWorldEnd = false;
+                ChangeBackground();
+                transform.position = initPosition;
+                backgroundChangedCount += 1;
+                FruitSpawner.instance.InitSpawner();
+            }
         }
         else if (FruitSpawner.instance.IsThereNoMoreFruits())
         {
             transform.position += Vector3.right * moveSpeed * Time.deltaTime;
         }
+    }
+
+    bool IsEndJourney()
+    {
+        return backgroundChangedCount >= 1;
+    }
+
+    void ChangeBackground()
+    {
+        // SceneManager.LoadScene("SecondWorld");
+
+        GameObject[] currentBackgrounds = GameObject.FindGameObjectsWithTag("Background");
+        currentBackgrounds.ToList().ForEach(e =>
+        {
+            foreach (Transform child in e.transform)
+            {
+                child.gameObject.SetActive(!child.gameObject.activeSelf);
+            }
+        });
     }
 
     bool IsJumpable()
@@ -70,6 +105,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "Finish")
         {
             hasReachedWorldEnd = true;
+            stageLevel += 1;
         }
     }
 

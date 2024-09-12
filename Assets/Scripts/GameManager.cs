@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     public List<FruitTextPair> fruitTextPairs;
     [SerializeField]
     private Canvas gameOverCanvas;
+    [SerializeField]
+    private Canvas gameDoneCanvas;
 
     public static GameManager instance = null;
 
@@ -63,5 +65,11 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         gameOverCanvas.gameObject.SetActive(true);
+    }
+
+    public void GameDone()
+    {
+        Time.timeScale = 0;
+        gameDoneCanvas.gameObject.SetActive(true);
     }
 }
