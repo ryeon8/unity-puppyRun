@@ -56,6 +56,11 @@ public class GameManager : MonoBehaviour
         return fruitTextPairs.Count - 1; // TODO 과일과 버섯을 구분할 방법이 필요.
     }
 
+    public void SyncHealthPointSlider(int maxValue)
+    {
+        healthPointSlider.maxValue = maxValue;
+    }
+
     public void UpdateHealthPointSlider(int healthPoint)
     {
         healthPointSlider.value = healthPoint;

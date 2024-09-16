@@ -32,7 +32,7 @@ public class Fruit : MonoBehaviour
             if (this.damege > 0)
             {
                 Player p = other.gameObject.GetComponent<Player>();
-                p.Damaged(damege);
+                p.Damaged(this.damege);
             }
             else
             {

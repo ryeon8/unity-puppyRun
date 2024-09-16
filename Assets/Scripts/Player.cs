@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
         initPosition = gameObject.transform.position;
         hasReachedWorldEnd = false;
         FruitSpawner.instance.InitSpawner();
+        GameManager.instance.SyncHealthPointSlider(healthPoint);
     }
 
     void Update()
