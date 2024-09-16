@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     private Canvas gameOverCanvas;
     [SerializeField]
     private Canvas gameDoneCanvas;
+    [SerializeField]
+    private GameObject fadePannel;
 
     public static GameManager instance = null;
 
@@ -40,6 +42,7 @@ public class GameManager : MonoBehaviour
         FruitTextPair fruitTextPair = GetFruitTextPair(fruit);
         if (fruitTextPair != null)
         {
+            Debug.Log(fruitTextPair.count);
             fruitTextPair.count += 1;
             fruitTextPair.countText.SetText(fruitTextPair.count.ToString());
         }

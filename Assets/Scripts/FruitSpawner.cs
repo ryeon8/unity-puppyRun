@@ -36,7 +36,6 @@ public class FruitSpawner : MonoBehaviour
 
     private bool isAllFruitsSpawned = false;
     private DateTime timeLastFruitSpawned;
-    private string spawnFruitRoutineName = "SpawnFruitRoutine";
     private System.Random random = new System.Random();
 
     void Awake()
@@ -49,11 +48,15 @@ public class FruitSpawner : MonoBehaviour
 
     void Start()
     {
-        InitCoordsList();
-        AddRandomCoords();
-        AddRandomEnemyCoords();
-        ClearRandomCoords();
-        StartCoroutine(spawnFruitRoutineName);
+        bool fruitExistOnScreen = GameObject.FindGameObjectWithTag("Fruit") != null;
+        if (!fruitExistOnScreen)
+        {
+            InitCoordsList();
+            AddRandomCoords();
+            AddRandomEnemyCoords();
+            ClearRandomCoords();
+            StartCoroutine(SpawnFruitRoutine());
+        }
     }
 
     void Update()
@@ -67,6 +70,8 @@ public class FruitSpawner : MonoBehaviour
 
         for (int i = 0; i < maxFruitCount; i++)
         {
+            Debug.Log("add");
+            Debug.Log(fruitSpawnInfosList.Count);
             fruitSpawnInfosList.Add(new List<FruitSpawnInfo> { defaultFruitSpawnInfo });
         }
     }
