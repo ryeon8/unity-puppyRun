@@ -42,7 +42,6 @@ public class GameManager : MonoBehaviour
         FruitTextPair fruitTextPair = GetFruitTextPair(fruit);
         if (fruitTextPair != null)
         {
-            Debug.Log(fruitTextPair.count);
             fruitTextPair.count += 1;
             fruitTextPair.countText.SetText(fruitTextPair.count.ToString());
         }

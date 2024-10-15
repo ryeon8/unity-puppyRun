@@ -70,8 +70,6 @@ public class FruitSpawner : MonoBehaviour
 
         for (int i = 0; i < maxFruitCount; i++)
         {
-            Debug.Log("add");
-            Debug.Log(fruitSpawnInfosList.Count);
             fruitSpawnInfosList.Add(new List<FruitSpawnInfo> { defaultFruitSpawnInfo });
         }
     }
