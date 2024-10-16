@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class FruitTextPair
@@ -24,7 +25,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Canvas gameDoneCanvas;
     [SerializeField]
-    private GameObject fadePannel;
+    private Canvas fadeInOutCanvas;
+    [SerializeField]
+    private Image fadeInOutImage;
 
     public static GameManager instance = null;
 
@@ -78,5 +81,41 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0;
         gameDoneCanvas.gameObject.SetActive(true);
+    }
+
+    public IEnumerator FadeIn()
+    {
+        fadeInOutCanvas.gameObject.SetActive(true);
+        yield return StartCoroutine(Fade(1f));
+    }
+
+    public IEnumerator FadeOut()
+    {
+        yield return new WaitForSeconds(0.5f);
+        yield return StartCoroutine(Fade(0f));
+        fadeInOutCanvas.gameObject.SetActive(false);
+    }
+
+    IEnumerator Fade(float targetOpacity)
+    {
+        float fadeDuration = 1f; // fade time, second
+        float startOpacity = fadeInOutImage.color.a;
+        float elapsed = 0f; // 경과 시간
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            float newOpacity = Mathf.Lerp(startOpacity, targetOpacity, elapsed / fadeDuration);
+            ChangeFadeInOutImageOpacity(newOpacity);
+            yield return null;
+        }
+
+        ChangeFadeInOutImageOpacity(targetOpacity);
+    }
+
+    void ChangeFadeInOutImageOpacity(float opacity)
+    {
+        Color color = fadeInOutImage.color;
+        color.a = opacity;
+        fadeInOutImage.color = color;
     }
 }

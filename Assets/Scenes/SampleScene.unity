@@ -3534,8 +3534,6 @@ MonoBehaviour:
   jumpForce: 12
   healthPoint: 5
   moveSpeed: 10
-  fadeInOutCanvas: {fileID: 396589859}
-  fadeInOutImage: {fileID: 946453365}
 --- !u!95 &1059951705
 Animator:
   serializedVersion: 5
@@ -4786,7 +4784,8 @@ MonoBehaviour:
     count: 0
   gameOverCanvas: {fileID: 1289857294}
   gameDoneCanvas: {fileID: 1870149243}
-  fadePannel: {fileID: 0}
+  fadeInOutCanvas: {fileID: 396589859}
+  fadeInOutImage: {fileID: 946453365}
 --- !u!4 &1639775595
 Transform:
   m_ObjectHideFlags: 0

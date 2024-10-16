@@ -15,10 +15,6 @@ public class Player : MonoBehaviour
     private int healthPoint;
     [SerializeField]
     private int moveSpeed;
-    [SerializeField]
-    private Canvas fadeInOutCanvas;
-    [SerializeField]
-    private Image fadeInOutImage;
 
     private int stageLevel = 1;
     private bool onGround = true;
@@ -72,7 +68,7 @@ public class Player : MonoBehaviour
     {
         // SceneManager.LoadScene("SecondWorld");
 
-        yield return StartCoroutine(FadeIn());
+        yield return StartCoroutine(GameManager.instance.FadeIn());
         GameObject[] currentBackgrounds = GameObject.FindGameObjectsWithTag("Background");
         currentBackgrounds.ToList().ForEach(e =>
         {
@@ -82,43 +78,7 @@ public class Player : MonoBehaviour
             }
         });
         transform.position = initPosition;
-        yield return StartCoroutine(FadeOut());
-    }
-
-    IEnumerator FadeIn()
-    {
-        fadeInOutCanvas.gameObject.SetActive(true);
-        yield return StartCoroutine(Fade(1f));
-    }
-
-    IEnumerator FadeOut()
-    {
-        yield return new WaitForSeconds(0.5f);
-        yield return StartCoroutine(Fade(0f));
-        fadeInOutCanvas.gameObject.SetActive(false);
-    }
-
-    IEnumerator Fade(float targetOpacity)
-    {
-        float fadeDuration = 1f; // fade time, second
-        float startOpacity = fadeInOutImage.color.a;
-        float elapsed = 0f; // 경과 시간
-        while (elapsed < fadeDuration)
-        {
-            elapsed += Time.deltaTime;
-            float newOpacity = Mathf.Lerp(startOpacity, targetOpacity, elapsed / fadeDuration);
-            ChangeFadeInOutImageOpacity(newOpacity);
-            yield return null;
-        }
-
-        ChangeFadeInOutImageOpacity(targetOpacity);
-    }
-
-    void ChangeFadeInOutImageOpacity(float opacity)
-    {
-        Color color = fadeInOutImage.color;
-        color.a = opacity;
-        fadeInOutImage.color = color;
+        yield return StartCoroutine(GameManager.instance.FadeOut());
     }
 
     bool IsJumpable()

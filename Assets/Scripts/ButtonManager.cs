@@ -61,6 +61,11 @@ public class ButtonManager : MonoBehaviour
     public void Replay()
     {
         SceneManager.LoadScene("SampleScene");
-        Time.timeScale = 1;
+        SceneManager.sceneLoaded += InitTimeScale;
+    }
+
+    void InitTimeScale(Scene scene, LoadSceneMode mode)
+    {
+        Time.timeScale = 1; // 씬 로드 후에 실행 보장.
     }
 }
