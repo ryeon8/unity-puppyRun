@@ -81,6 +81,7 @@ public class Player : MonoBehaviour
         transform.position = initPosition;
         yield return StartCoroutine(GameManager.instance.FadeOut());
         FruitSpawner.instance.InitSpawner();
+        isOnMapChanging = false;
     }
 
     bool IsJumpable()
