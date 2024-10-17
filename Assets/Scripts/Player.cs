@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     private bool hasReachedWorldEnd = false;
     private Vector3 initPosition;
     private int backgroundChangedCount = 0;
+    private bool isOnMapChanging = false;
 
     void Start()
     {
@@ -47,13 +48,13 @@ public class Player : MonoBehaviour
             }
             else
             {
+                isOnMapChanging = true;
                 hasReachedWorldEnd = false;
-                StartCoroutine(ChangeBackground());
                 backgroundChangedCount += 1;
-                FruitSpawner.instance.InitSpawner();
+                StartCoroutine(ChangeBackground());
             }
         }
-        else if (FruitSpawner.instance.IsThereNoMoreFruits())
+        else if (!isOnMapChanging && FruitSpawner.instance.IsThereNoMoreFruits()) // 맵 페이드 인, 아웃 중에는 캐릭터가 이동하지 않도록.
         {
             transform.position += Vector3.right * moveSpeed * Time.deltaTime;
         }
@@ -79,6 +80,7 @@ public class Player : MonoBehaviour
         });
         transform.position = initPosition;
         yield return StartCoroutine(GameManager.instance.FadeOut());
+        FruitSpawner.instance.InitSpawner();
     }
 
     bool IsJumpable()
